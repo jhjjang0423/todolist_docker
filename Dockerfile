@@ -16,7 +16,9 @@ ENV PYTHONUNBUFFERED=1
 
 # Expose the port the app runs on
 EXPOSE 8000
-EXPOSE 8001
 
 # Run the command to start the Django app
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+
+
+
