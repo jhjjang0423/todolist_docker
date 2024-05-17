@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDo List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        .todo-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            list-style-type: none;
+        }
+        .todo-item h2 {
+            margin: 0;
+        }
+        .todo-item p {
+            margin: 5px 0;
+        }
+        .todo-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 8px 15px;
+            font-size: 10px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .btn.delete {
+            background-color: #dc3545;
+        }
+        .btn.delete:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ToDo List</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Add</button>
+        </form>
+        <ul>
+            {% for todo in todos %}
+                <li class="todo-item">
+                    <h2>{{ todo.title }}</h2>
+                    <p>{{ todo.description }}</p>
+                    <p>Completed: {{ todo.completed }}</p>
+                    <div class="todo-actions">
+                        <a href="{% url 'edit_todo' todo.id %}" class="btn">Edit</a>
+                        <a href="{% url 'delete_todo' todo.id %}" class="btn delete">Delete</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
